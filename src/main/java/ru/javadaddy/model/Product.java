@@ -3,13 +3,25 @@ package ru.javadaddy.model;
 import java.util.Objects;
 
 public class Product {
+
+    private long id;
+
     private String name;
 
     private double price;
 
-    public Product(String name, double price) {
+    public Product(long id, String name, double price) {
+        this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,18 +45,19 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Double.compare(price, product.price) == 0 && Objects.equals(name, product.name);
+        return id == product.id && Double.compare(price, product.price) == 0 && Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price);
+        return Objects.hash(id, name, price);
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
     }
