@@ -6,6 +6,7 @@ import ru.javadaddy.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CartRepositoryImpl {
 
@@ -35,14 +36,36 @@ public class CartRepositoryImpl {
 
     //TODO: Реализовать применение скидки
     public void applyDiscount(double percent) {
-        if (percent <= 0) {
-            throw new IllegalArgumentException("Процент скидки должен быть положительным");
+        if (percent < 0 || percent > 100) {
+            throw new IllegalArgumentException("Процент скидки должен от 1 до 100");
         }
+
+        //Пройти по каждому товару в списке и получить цену каждого товара и применить к цене скидку, и установить цену со скидку к товару
+        cartItemList.forEach(item -> {
+            if (item.getProduct() == null) {
+                throw new IllegalArgumentException("Товар не найден");
+            }
+            double oldPrice = item.getProduct().getPrice();
+            double newPrice = oldPrice * (1 - percent / 100);
+            item.getProduct().setPrice(newPrice);
+        });
     }
 
     //TODO: Реализовать итоговая сумму с учётом скидки
     public double getCalculateTotal() {
-        return 0;
+        if (cartItemList == null || cartItemList.isEmpty()) {
+            return 0.0;
+        }
+
+        double total = 0.0;
+
+        for (CartItem item : cartItemList) {
+            if (item.getProduct() != null) {
+                total += item.getProduct().getPrice() * item.getQuantity();
+            }
+        }
+
+        return total;
     }
 
     //TODO: Реализовать получение товара из корзины
