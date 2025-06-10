@@ -4,6 +4,7 @@ import ru.javadaddy.model.CartItem;
 import ru.javadaddy.model.Product;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,8 +70,12 @@ public class CartRepositoryImpl {
     }
 
     //TODO: Реализовать получение товара из корзины
-    private Product findItem() {
+    private List<CartItem> findItems() {
 
-        return null;
+        if (cartItemList.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return new ArrayList<>(cartItemList);
     }
 }
