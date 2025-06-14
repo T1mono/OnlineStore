@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class CartRepositoryImpl {
+public class CartRepositoryImpl implements CartRepository {
 
     List<CartItem> cartItemList = new ArrayList<>();
 
+    @Override
     public void addItem(Product product, int quantity) {
         if (product == null) {
             throw new IllegalArgumentException("Товар не может быть null");
@@ -36,6 +36,7 @@ public class CartRepositoryImpl {
     }
 
     //TODO: Реализовать применение скидки
+    @Override
     public void applyDiscount(double percent) {
         if (percent < 0 || percent > 100) {
             throw new IllegalArgumentException("Процент скидки должен от 1 до 100");
@@ -53,6 +54,7 @@ public class CartRepositoryImpl {
     }
 
     //TODO: Расчёт и вывод содержимого корзины
+    @Override
     public double getCalculateTotal() {
         if (cartItemList == null || cartItemList.isEmpty()) {
             return 0.0;
@@ -69,9 +71,7 @@ public class CartRepositoryImpl {
         return total;
     }
 
-    //TODO: Реализовать получение товаров из корзины
-    private List<CartItem> findItems() {
-
+    public List<CartItem> findItems() {
         if (cartItemList == null || cartItemList.isEmpty()) {
             return Collections.emptyList();
         }
