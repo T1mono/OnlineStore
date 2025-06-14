@@ -52,7 +52,7 @@ public class CartRepositoryImpl {
         });
     }
 
-    //TODO: Реализовать итоговая сумму с учётом скидки
+    //TODO: Расчёт и вывод содержимого корзины
     public double getCalculateTotal() {
         if (cartItemList == null || cartItemList.isEmpty()) {
             return 0.0;
@@ -69,10 +69,10 @@ public class CartRepositoryImpl {
         return total;
     }
 
-    //TODO: Реализовать получение товара из корзины
+    //TODO: Реализовать получение товаров из корзины
     private List<CartItem> findItems() {
 
-        if (cartItemList.isEmpty()) {
+        if (cartItemList == null || cartItemList.isEmpty()) {
             return Collections.emptyList();
         }
 
